@@ -1,6 +1,6 @@
 .stage {
   position: relative;
-  min-height: 98.5dvh;
+  min-height: 100dvh;
   background: #fff;
 
   --fade-duration: 3000ms;
@@ -9,7 +9,7 @@
 }
 
 .main {
-  min-height: 98.5dvh;
+  min-height: 100dvh;
   background: #fff;
   opacity: 0;
   pointer-events: none;
