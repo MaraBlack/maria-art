@@ -1,0 +1,12 @@
+<div class="wrapper" [class.reduced]="reducedMotion()">
+  <div class="row" *ngFor="let row of rows(); let r = index">
+    <span
+      class="cell"
+      *ngFor="let _ of maxLenArray(); let c = index"
+      [style.--delay-ms]="(staggerMs * c) + 'ms'"
+      [class.spinning]="isSpinning(r, c)"
+    >
+      {{ displayChar(r, c) }}
+    </span>
+  </div>
+</div>

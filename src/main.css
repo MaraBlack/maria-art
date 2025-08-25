@@ -1,0 +1,68 @@
+.stage {
+  position: relative;
+  min-height: 100dvh;
+  background: #fff;
+
+  --fade-duration: 3000ms;
+  --fade-delay: 1600ms;
+  --fade-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.main {
+  min-height: 100dvh;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--fade-duration) var(--fade-ease) var(--fade-delay);
+}
+
+.main.revealed {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.splash {
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  display: grid;
+  place-items: center;
+  z-index: 10;
+  color: white;
+
+  opacity: 1;
+  transform: translateY(0);
+  will-change: opacity, transform;
+  transition:
+    opacity var(--fade-duration) var(--fade-ease) var(--fade-delay),
+    transform var(--fade-duration) var(--fade-ease) var(--fade-delay);
+}
+
+.splash.hide {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.placeholder {
+  display: inline-grid;
+  row-gap: 14px;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main {
+    transition: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .splash {
+    transition: none;
+  }
+
+  .splash.hide {
+    opacity: 0;
+    transform: none;
+  }
+}

@@ -1,0 +1,18 @@
+<div class="stage" [style.--fade-delay.ms]="fadeDelayMs">
+  <!-- Splash overlay -->
+  <div class="splash" *ngIf="showSplash" [class.hide]="isFadingOut" (transitionend)="onSplashTransitionEnd($event)">
+    <div class="placeholder">
+      <app-rolling-letters [words]="['maria','art']" [isReady]="isAppReady" [tickMs]="120" [staggerMs]="250"
+        [uppercase]="true">
+      </app-rolling-letters>
+
+      <app-progress-bar [progress]="progress" [height]="3" trackColor="#2f2f2f" fillColor="#ffffff">
+      </app-progress-bar>
+    </div>
+  </div>
+
+  <!-- Main app -->
+  <div class="main" [class.revealed]="isAppReady">
+    <router-outlet></router-outlet>
+  </div>
+</div>
