@@ -14,9 +14,10 @@ import { CommonModule } from '@angular/common';
 })
 export class App implements OnInit {
   isAppReady = false;
-  showSplash = true;    // controls *ngIf
-  isFadingOut = false;  // adds the .hide class to animate out
-  progress = 0;         // 0..100 for your determinate bar
+  showSplash = true;
+  // adds the .hide class to animate out
+  isFadingOut = false;
+  progress = 0;
   fadeDelayMs = 1600;
 
   ngOnInit() {
@@ -36,9 +37,9 @@ export class App implements OnInit {
   }
 
   markReady() {
-    this.isAppReady = true;   // letters reveal + progress hits 100%
+    this.isAppReady = true;
     this.progress = 100;
-    this.isFadingOut = true;  // triggers .splash.hide (CSS handles delay/ease)
+    this.isFadingOut = true;
   }
 
   onSplashAnimEnd(_: AnimationEvent) {
@@ -55,7 +56,6 @@ export class App implements OnInit {
 
 const routes: Routes = [
   { path: '', component: App },
-  // other routes...
 ];
 
 bootstrapApplication(App, {
