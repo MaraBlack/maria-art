@@ -1,55 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RollingLetters } from './components/rolling-letters/rolling-letters';
 import { ProgressBar } from './components/progress-bar/progress-bar';
-import { provideRouter, RouterOutlet, Routes } from '@angular/router';
+import { provideRouter, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [CommonModule, RouterOutlet, RollingLetters, ProgressBar],
+  imports: [CommonModule, RollingLetters, ProgressBar],
   standalone: true,
   selector: 'app-root',
   templateUrl: './main.html',
-  styleUrl: './main.css',
+  styleUrl: './main.scss',
 })
-export class App implements OnInit {
-  isAppReady = false;
-  showSplash = true;
-  // adds the .hide class to animate out
-  isFadingOut = false;
-  progress = 0;
+export class App implements OnInit, AfterViewInit {
+
+  isAppReady = signal(false);
+  showSplash = signal(true);
+  isFadingOut = signal(false);
+  progress = signal(0);
   fadeDelayMs = 1600;
 
   ngOnInit() {
     // Example bridge: move to ~90% until ready, then 100%
     const tick = 100;
     const id = setInterval(() => {
-      if (!this.isAppReady) {
-        this.progress = Math.min(90, this.progress + 1.8); // ~5s to 90%
+      if (!this.isAppReady()) {
+        this.progress.set(Math.min(90, this.progress() + 1.8)); // ~5s to 90%
       } else {
-        this.progress = 100;
+        this.progress.set(100);
         clearInterval(id);
       }
     }, tick);
 
-    // Simulate boot; in real app, call markReady() when your init finishes
     setTimeout(() => this.markReady(), 3000);
+
+  }
+
+  ngAfterViewInit(): void {
+    // this.markReady();
   }
 
   markReady() {
-    this.isAppReady = true;
-    this.progress = 100;
-    this.isFadingOut = true;
+    this.isAppReady.set(true);
+    this.progress.set(100);
+    this.isFadingOut.set(true);
   }
 
   onSplashAnimEnd(_: AnimationEvent) {
-    if (this.isFadingOut) this.showSplash = false; // remove splash from DOM
+    if (this.isFadingOut()) this.showSplash.set(false); // remove splash from DOM
   }
 
   onSplashTransitionEnd(e: TransitionEvent) {
+    console.log(' this.showSplash',  this.showSplash());
+    
     // Only remove after the opacity transition completes on the splash root
     if ((e.target as HTMLElement).classList.contains('splash') && e.propertyName === 'opacity') {
-      this.showSplash = false;
+      this.showSplash.set(false);
     }
   }
 }

@@ -1,18 +1,69 @@
 <div class="stage" [style.--fade-delay.ms]="fadeDelayMs">
   <!-- Splash overlay -->
-  <div class="splash" *ngIf="showSplash" [class.hide]="isFadingOut" (transitionend)="onSplashTransitionEnd($event)">
-    <div class="placeholder">
-      <app-rolling-letters [words]="['maria','art']" [isReady]="isAppReady" [tickMs]="120" [staggerMs]="250"
-        [uppercase]="true">
-      </app-rolling-letters>
+  @if(showSplash()) {
+    <div class="splash" [class.hide]="isFadingOut()" (transitionend)="onSplashTransitionEnd($event)">
+      <div class="placeholder">
+        <app-rolling-letters [words]="['maria','art']" [isReady]="isAppReady()" [tickMs]="200" [staggerMs]="250"
+          [uppercase]="true">
+        </app-rolling-letters>
 
-      <app-progress-bar [progress]="progress" [height]="3" trackColor="#2f2f2f" fillColor="#ffffff">
-      </app-progress-bar>
+        <app-progress-bar [progress]="progress()" [height]="3" trackColor="#2f2f2f" fillColor="#ffffff">
+        </app-progress-bar>
+      </div>
     </div>
-  </div>
-
+  }
+  @else {
   <!-- Main app -->
-  <div class="main" [class.revealed]="isAppReady">
-    <router-outlet></router-outlet>
+  <div class="main flex flex-col justify-between p-8" [class.revealed]="isAppReady()">
+
+    <header class="flex justify-between items-start">
+      <div class="text-6xl font-bold">
+        <h1>MARIA</h1>
+        <h1>ART</h1>
+      </div>
+      <div class="text-right text-sm">
+        <a class="block hover:underline" href="#">DOWNLOAD RESUME</a>
+        <!-- <a class="block hover:underline" href="#">test.name</a> -->
+        <a class="block mt-6 hover:underline" href="#">ABOUT</a>
+      </div>
+    </header>
+    <main class="flex-grow flex items-center justify-center">
+      <div class="grid grid-cols-12 gap-8 w-full projects-grid">
+        <!-- LEFT: LIST -->
+        <div class="col-span-3">
+          <div class="flex items-center space-x-2 mb-8">
+            <span class="text-base">CATEGORIES</span>
+            <!-- <span class="text-lg font-bold">+</span> -->
+          </div>
+          <ul class="space-y-2 text-base project-list">
+            <li class="cursor-pointer" data-i="1">
+              <span class="text-gray-400">001</span>
+              <span class="text-gray-400 hover:text-black"> SKETCHBOOK </span>
+            </li>
+            <li class="cursor-pointer hover:text-gray-400" data-i="2">
+              <span class="text-gray-400">002</span>
+              <span class="text-gray-400 hover:text-black"> DIGITAL </span>
+            </li>
+            <li class="cursor-pointer hover:text-gray-400" data-i="3">
+              <span class="text-gray-400">003</span>
+              <span class="text-gray-400 hover:text-black"> PHOTOGRAPHY </span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- RIGHT: IMAGES -->
+        <div class="col-span-9 flex w-2/3 flex-col items-center space-y-4">
+          <img data-i="1" alt="sketchbook" class="project-img w-full h-64 object-cover" src="./assets/sketchbook.jpg" />
+          <img data-i="2" alt="digital" class="project-img w-full h-64 object-cover" src="./assets/digital.jpg" />
+          <img data-i="3" alt="photography" class="project-img w-full h-64 object-cover"
+            src="./assets/photography.jpg" />
+        </div>
+      </div>
+    </main>
+    <footer class="flex justify-between text-sm">
+      <span>08/2025</span>
+      <span>FRONTEND DEV</span>
+    </footer>
   </div>
+  }
 </div>

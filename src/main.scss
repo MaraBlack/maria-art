@@ -1,3 +1,8 @@
+@use './_project-hover' as ph; // adjust path
+
+@include ph.project-hover(5); // you have 5 items/images
+
+
 .stage {
   position: relative;
   min-height: 100dvh;

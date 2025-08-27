@@ -1,5 +1,6 @@
-/* Add application styles & imports to this file! */
-* {
+@import 'tailwindcss';
+
+body {
   margin: 0;
   padding: 0;
 }
