@@ -1,36 +1,38 @@
-// _project-hover.scss
-@mixin project-hover($count,
-  $grid: '.projects-grid',
-  $list: '.project-list',
-  $img: '.project-img'
-
+@mixin project-hover(
+  $count,
+  $grid: ".projects-grid",
+  $list: ".project-list",
+  $img: ".project-img"
 ) {
   #{$grid} {
-
-    // base look
+    //  base  look
     #{$img} {
       filter: grayscale(100%);
       transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
     }
 
-    // allow direct hover on image
+    //  direct  hover
     #{$img}:hover {
       filter: none;
       transform: scale(1.05);
       cursor: pointer;
     }
 
-    // generate per-index rules without comma-separated selectors
-    @for $i from 1 through $count {
-      &:has(#{$list} [data-i='#{$i}']:hover) {
-        #{$img}[data-i='#{$i}'] {
-          filter: none;
-          transform: scale(1.05);
-        }
-      }
+    // active  image  —  remove  grayscale
+    #{$img}.active {
+      // opacity: 1;
+      filter: none;
+      height: 400px;
+      display: block; /* Ensures the image pushes down the next element */
+      object-fit: cover;
+    }
 
-      &:has(#{$list} [data-i='#{$i}']:focus-visible) {
-        #{$img}[data-i='#{$i}'] {
+    //  per-index  hover/focus/active from  list
+    @for $i from 1 through $count {
+      &:has(#{$list} [data-i="#{$i}"]:hover),
+      &:has(#{$list} [data-i="#{$i}"]:focus-visible),
+      &:has(#{$list} [data-i="#{$i}"].active) {
+        #{$img}[data-i="#{$i}"] {
           filter: none;
           transform: scale(1.05);
         }
