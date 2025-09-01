@@ -22,25 +22,5 @@ export class Home {
 
   setActive(project: any) {
     this.activeProject = project;
-
-    this.scrollToDataId(project.id);
-  }
-
-  scrollToDataId(dataId: number) {
-    const container = document.getElementById("carousel");
-    console.log("container", container);
-
-    if (container) {
-      const targetElement: HTMLElement | null = container.querySelector(
-        `[data-i="${dataId}"]`
-      );
-
-      if (targetElement) {
-        container.scrollTo({
-          top: targetElement.offsetTop - container.offsetTop,
-          behavior: "smooth",
-        });
-      }
-    }
   }
 }

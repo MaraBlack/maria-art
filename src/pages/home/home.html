@@ -14,8 +14,8 @@
     <!-- lg and md screen -->
     <div class="grid grid-cols-12 gap-8 w-full projects-grid hidden lg:grid">
       <!-- LEFT: LIST -->
-      <div class="col-span-3 flex flex-col justify-start my-[32%]">
-        <div class="flex items-center my-4">
+      <div class="col-span-3 flex flex-col justify-start">
+        <div class="flex items-center mb-4">
           <span class="text-base">CATEGORIES</span>
         </div>
 
@@ -38,10 +38,7 @@
       </div>
 
       <!-- RIGHT: IMAGES -->
-      <div
-        id="carousel"
-        class="col-span-9 flex w-2/3 h-[500px] overflow-hidden flex-col items-center space-y-4"
-      >
+      <div id="carousel" class="col-span-9 flex w-2/3 flex-col space-y-4">
         <div *ngFor="let  project  of  projects">
           <img
             (click)="setActive(project)"

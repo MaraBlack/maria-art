@@ -22,7 +22,7 @@
     #{$img}.active {
       // opacity: 1;
       filter: none;
-      height: 400px;
+      height: 60dvh;
       display: block; /* Ensures the image pushes down the next element */
       object-fit: cover;
     }
