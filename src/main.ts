@@ -4,6 +4,7 @@ import { provideRouter, RouterOutlet, Routes } from "@angular/router";
 import { LoadingPage } from "./pages/loading-page/loading-page";
 import { Home } from "./pages/home/home";
 import { InitGuard } from "./guard/init.guard";
+import { ProjectWrapper } from "./pages/project-wrapper/project-wrapper";
 
 @Component({
   standalone: true,
@@ -19,6 +20,12 @@ export class App implements OnInit {
 const routes: Routes = [
   { path: "", component: LoadingPage },
   { path: "home", component: Home, canActivate: [InitGuard] },
+  {
+    path: "project/:code",
+    component: ProjectWrapper,
+    canActivate: [InitGuard],
+  },
+  { path: "", redirectTo: "", pathMatch: "full" },
 ];
 
 bootstrapApplication(App, {

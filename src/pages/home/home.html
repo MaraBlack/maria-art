@@ -38,14 +38,10 @@
       </div>
 
       <!-- RIGHT: IMAGES -->
-      <div id="carousel" class="col-span-9 flex w-2/3 flex-col space-y-4">
+      <div class="col-span-9 flex w-2/3 flex-col space-y-4">
         <div *ngFor="let  project  of  projects">
           <img
             (click)="setActive(project)"
-            [ngClass]="{
-             'active':  activeProject?.id  ===  project.id,
-            
-          }"
             [attr.data-i]="project.id"
             [alt]="project.alt"
             class="project-img w-full size-40 object-cover"
@@ -67,7 +63,7 @@
         <img
           [src]="'../../assets/'  +  project.image"
           [alt]="project.alt"
-          class="w-full grayscale h-48 object-cover"
+          class="w-full grayscale h-[48dvh] object-cover"
         />
       </div>
     </div>

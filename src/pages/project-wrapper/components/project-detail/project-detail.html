@@ -1,0 +1,191 @@
+<div class="h-dvh flex flex-col justify-between p-8">
+  <div class="flex flex-col h-dvh">
+    <header class="flex justify-between items-start mb-16">
+      <h1
+        class="text-4xl md:text-6xl font-bold tracking-tighter opacity-0"
+        [ngClass]="animationClass"
+      >
+        {{ project.title }}
+      </h1>
+      <div class="text-right">
+        <span class="text-4xl md:text-6xl font-bold">{{ project.code }}</span>
+      </div>
+    </header>
+
+    <main class="flex-grow flex justify-center mb-8">
+      <!-- large screen -->
+      <div class="grid grid-cols-12 gap-8 w-full items-center hidden lg:grid">
+        <div class="left-side col-span-4">
+          <div class="flex mb-2">
+            <span class="w-10">DETAILS</span>
+          </div>
+          <div class="flex my-2 text-gray-400">
+            <span class="w-10">TYPE</span>
+            <p>{{ project.type }}</p>
+          </div>
+          <div class="flex my-2 text-gray-400">
+            <span class="w-10">DATE</span>
+            <p>{{ project.date }}</p>
+          </div>
+          <p class="my-12">{{ project.description }}</p>
+          <div class="flex">
+            <span class="w-10 mr-4">TOOLS</span>
+            <ul>
+              <li *ngFor="let tool  of  project.tools">
+                <span class="text-gray-400">{{ tool }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-span-4 flex flex-col items-center justify-center">
+          <!-- prev image -->
+          <div *ngIf="!prevProject" class="h-[8dvh]">
+            <span class="w-full font-medium">Scroll</span>
+          </div>
+          <div
+            *ngIf="prevProject"
+            class="relative h-[8dvh] w-full my-4"
+            (click)="navigateUp.emit()"
+          >
+            <div class="absolute top-0 left-0 w-full h-full">
+              <img
+                [alt]="prevProject.alt"
+                [src]="'../../assets/' +  prevProject.image"
+                class="w-full h-full object-cover rounded-lg grayscale opacity-16 mask-luminance mask-t-from-white mask-t-from-50% z-0"
+              />
+            </div>
+
+            <div
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+            >
+              <span class="material-symbols-outlined text-5xl"
+                >keyboard_arrow_up</span
+              >
+            </div>
+          </div>
+
+          <!-- current image -->
+          <img
+            [alt]="project.alt"
+            class="project-img w-full h-[56dvh] object-cover rounded-lg"
+            [src]="'../../assets/'  +  project.image"
+          />
+
+          <!-- next image -->
+          <div
+            *ngIf="nextProject"
+            class="relative h-[8dvh] w-full my-4"
+            (click)="navigateDown.emit()"
+          >
+            <div class="absolute top-0 left-0 w-full h-full">
+              <img
+                [alt]="nextProject.alt"
+                [src]="'../../assets/' +  nextProject.image"
+                class="absolute top-0 left-0 w-full h-full object-cover rounded-lg grayscale opacity-16 mask-luminance mask-b-from-white mask-b-from-50% z-0"
+              />
+            </div>
+
+            <div
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+            >
+              <span class="material-symbols-outlined text-5xl"
+                >keyboard_arrow_down</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-4 flex flex-col items-end space-y-12">
+          <a class="flex items-center space-x-2" (click)="close.emit()">
+            <span class="cursor-pointer">CLOSE</span>
+            <span class="material-symbols-outlined text-2xl mx-2 cursor-pointer"
+              >close</span
+            >
+            <span class="block w-16 h-px bg-gray-400"></span>
+          </a>
+          <a
+            class="flex items-center space-x-2"
+            [href]="project.link"
+            target="_blank"
+          >
+            <span class="cursor-pointer">VIEW MORE</span>
+            <span
+              class="material-symbols-outlined text-gray-700 text-2xl mx-2 cursor-pointer"
+              >arrow_outward</span
+            >
+            <span class="block w-16 h-px bg-gray-400"></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- small screen -->
+      <!-- <div class="w-full space-y-6 px-4 text-3xl lg:hidden">
+        <div class="mb-8 flex justify-center items-center">
+          <span class="material-symbols-outlined text-gray-700 text-6xl my-2"
+            >keyboard_arrow_left</span
+          >
+          <img
+            [src]="'../../assets/'  +  project?.image"
+            [alt]="project?.alt"
+            class="w-full h-auto rounded-lg"
+          />
+
+          <span class="material-symbols-outlined text-gray-700 text-6xl my-2"
+            >keyboard_arrow_right</span
+          >
+        </div>
+
+        <div class="flex flex-col my-6">
+          <div class="w-auto flex">
+            <span class="font-medium mr-4">TYPE</span>
+            <p>{{ project?.type }}</p>
+          </div>
+          <div class="w-auto flex">
+            <span class="font-medium mr-4">DATE</span>
+            <p>{{ project?.date }}</p>
+          </div>
+          <div class="w-auto flex">
+            <span class="font-medium mr-4">ROLE</span>
+            <p>DESIGN & DEV</p>
+          </div>
+          <div class="w-auto flex">
+            <span class="font-medium mr-4">TOOLS</span>
+            <ul class="flex flex-wrap mx-2">
+              <li *ngFor="let  tool  of  project?.tools">
+                <span class="mx-2">{{ tool }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex pt-2 my-12">
+          <p>{{ project?.description }}</p>
+        </div>
+
+        <div class="flex justify-between items-start my-6 mt-8">
+          <a class="flex items-center space-x-2" (click)="navigateTo('home')">
+            <span class="cursor-pointer">CLOSE</span>
+            <span
+              class="material-symbols-outlined text-gray-700 text-2xl mx-2 cursor-pointer"
+              >close</span
+            >
+            <span class="block w-16 h-px bg-gray-400"></span>
+          </a>
+          <a
+            class="flex items-center space-x-2"
+            [href]="project?.link"
+            target="_blank"
+          >
+            <span class="cursor-pointer">VIEW MORE</span>
+            <span
+              class="material-symbols-outlined text-gray-700 text-2xl mx-2 cursor-pointer"
+              >expand_content</span
+            >
+            <span class="block w-16 h-px bg-gray-400"></span>
+          </a>
+        </div>
+      </div> -->
+    </main>
+  </div>
+</div>

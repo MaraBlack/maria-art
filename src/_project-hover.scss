@@ -18,15 +18,6 @@
       cursor: pointer;
     }
 
-    // active  image  —  remove  grayscale
-    #{$img}.active {
-      // opacity: 1;
-      filter: none;
-      height: 60dvh;
-      display: block; /* Ensures the image pushes down the next element */
-      object-fit: cover;
-    }
-
     //  per-index  hover/focus/active from  list
     @for $i from 1 through $count {
       &:has(#{$list} [data-i="#{$i}"]:hover),

@@ -1,0 +1,10 @@
+<div class="relative">
+  <app-project-detail
+    [project]="currentProject"
+    [prevProject]="prevProject"
+    [nextProject]="nextProject"
+    (navigateUp)="navigate('up')"
+    (navigateDown)="navigate('down')"
+    (close)="onClose()"
+  ></app-project-detail>
+</div>

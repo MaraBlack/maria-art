@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { ProgressBar } from "../../components/progress-bar/progress-bar";
 import { RollingLetters } from "../../components/rolling-letters/rolling-letters";
 import { AppInitService } from "../../service/app-init";
@@ -14,7 +14,10 @@ import { Router } from "@angular/router";
 export class LoadingPage {
   progress = 0;
 
-  constructor(private appInit: AppInitService, private router: Router) {}
+  private appInit = inject(AppInitService);
+  private router = inject(Router);
+
+  constructor() {}
 
   async ngOnInit() {
     this.appInit.progress$.subscribe((p) => {
